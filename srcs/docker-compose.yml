@@ -1,0 +1,60 @@
+version: "3"
+services:
+  mariadb:
+    container_name: mariadb11
+    build:
+      context: ./requirements/mariadb
+    ports:
+      - "3306:3306"
+    env_file:
+      - ./.env
+    networks:
+      - mynet1
+    volumes:
+      - data1:/var/lib/mysql
+  wordpress:
+    container_name: wordpress
+    build:
+      context: ./requirements/wordpress
+    depends_on:
+      - mariadb
+    ports:
+      - "9000:9000"
+    env_file:
+      - ./.env
+    networks:
+      - mynet1
+    volumes:
+      - data2:/var/www/html
+  nginx:
+    container_name: mariadb
+    build:
+      context: ./requirements/mariadb
+    depends_on:
+      - wordpress
+    ports:
+      - "443:443"
+    env_file:
+      - ./.env
+    networks:
+      - mynet1
+    volumes:
+      - data2:/var/lib/mysql
+networks:
+  mynet1:
+    driver: bridge
+volumes:
+  data2:
+    name: wp_data
+    driver: local
+    driver_opts:
+            device: /home/escanor
+            o: bind
+            type: none
+  data1:
+    name: db_data
+    driver: local
+    driver_opts:
+      device: /home/escanor
+      o: bind
+      type: none
