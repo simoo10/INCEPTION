@@ -9,6 +9,8 @@ services:
       - mynet1
     volumes:
       - data1:/var/lib/mysql
+    expose:
+      - 3306
     env_file:
       - .env
     restart: always
@@ -18,6 +20,8 @@ services:
       context: ./requirements/wordpress
     depends_on:
       - mariadb
+    expose:
+      - 9000
     networks:
       - mynet1
     volumes:
@@ -43,4 +47,16 @@ networks:
     driver: bridge
 volumes:
   data2:
+    name: wp_data
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/met-tahe/data/wordpress
+      o: bind
   data1:
+    name: mdb_data
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/met-tahe/data/mariadb
+      o: bind
