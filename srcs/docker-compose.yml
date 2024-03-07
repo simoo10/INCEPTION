@@ -1,10 +1,11 @@
-version: '3'
+version: "3.8"
 
 services:
   mariadb:
     container_name: mariadb
-    build:
-      context: ./requirements/mariadb
+    build: ./requirements/mariadb/.
+      # context: ./requirements/mariadb/.
+    # container_name: mariadb
     networks:
       - mynet1
     volumes:
@@ -14,10 +15,12 @@ services:
     env_file:
       - .env
     restart: always
+    image: mariadb
   wordpress:
+    # image: wordpress
     container_name: wordpress
-    build:
-      context: ./requirements/wordpress
+    build: ./requirements/wordpress/.
+      # context: ./requirements/wordpress/.
     depends_on:
       - mariadb
     expose:
@@ -29,10 +32,12 @@ services:
     env_file: 
       - .env
     restart: always
+    image: wordpress
   nginx:
+    # image: nginx
     container_name: nginx
-    build:
-      context: ./requirements/nginx
+    build: ./requirements/nginx/.
+      # context: ./requirements/nginx/.
     depends_on:
       - wordpress
     ports:
@@ -42,6 +47,7 @@ services:
     volumes:
       - data2:/var/www/html
     restart: always
+    image: nginx
 networks:
   mynet1:
     driver: bridge

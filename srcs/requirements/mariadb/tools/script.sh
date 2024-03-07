@@ -1,9 +1,5 @@
 #!/bin/sh
 
-# mkdir /var/run/mysqld/
-# chown -R nobody:nogroup /var/run/mysqld
-# chmod 777 /var/run/mysqld
-
 mysql_install_db;
 service mysql start;
 

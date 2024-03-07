@@ -3,8 +3,9 @@ RUN= sudo docker compose up -d
 BUILD= sudo docker compose build
 PS= sudo docker compose ps
 DOWN= sudo docker compose down
-RMIMG= sudo docker rmi wordpress mariadb nginx
+RMIMG= sudo docker rm -f wordpress mariadb nginx
 RMVOL= sudo docker volume rm -f wp_data mdb_data
+RMMOUNT= sudo rm -rf /home/met-tahe/data
 all:vol_cr
 		${DIR} && ${RUN}
 
@@ -17,7 +18,9 @@ clean:
 	${DIR} && ${DOWN} && ${RMVOL}
 mount_rm:
 	sudo rm -rf /home/met-tahe/data
+show_vol:
+	sudo docker volume ls
 vol_rm:
-	${RMVOL}
-fclean:clean
+	${RMVOL} && ${RMMOUNT}
+fclean:clean vol_rm
 		${RMIMG}
