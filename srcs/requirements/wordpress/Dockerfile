@@ -1,9 +1,6 @@
-FROM debian:buster
+FROM debian:bullseye
 
-RUN apt-get update -y && \
-    apt-get upgrade -y && \
-    apt-get install -y \
-    php7.3 php7.3-fpm wget unzip php7.3-mysql
+RUN apt update -y && apt upgrade -y && apt install -y php7.4 php7.4-fpm wget unzip php7.4-mysql mariadb-client
 WORKDIR /var/www/html
 RUN     wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN     chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
