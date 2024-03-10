@@ -1,11 +1,11 @@
 DIR= cd srcs
-RUN= docker compose up --build -d
+RUN= docker compose up --build
 BUILD= docker compose build
 PS= docker compose ps
 DOWN= docker compose down
 RMIMG= docker image rm -f wordpress mariadb nginx
 RMVOL= docker volume rm -f wp_data mdb_data
-RMMOUNT= rm -rf /home/met-tahe/data
+RMMOUNT= sudo rm -rf /home/met-tahe/data
 all:vol_cr
 		${DIR} && ${RUN}
 
@@ -17,7 +17,7 @@ ps:
 clean:
 	${DIR} && ${DOWN} && ${RMVOL}
 mount_rm:
-	rm -rf /home/met-tahe/data
+	sudo rm -rf /home/met-tahe/data
 show_vol:
 	docker volume ls
 vol_rm:

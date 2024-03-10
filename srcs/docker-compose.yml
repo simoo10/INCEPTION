@@ -46,6 +46,8 @@ services:
       - mynet1
     volumes:
       - data2:/var/www/html
+    env_file: 
+      - .env
     restart: always
     image: nginx
 networks:
