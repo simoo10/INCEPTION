@@ -4,8 +4,8 @@ RUN apt update -y && apt upgrade -y && apt install -y php7.4 php7.4-fpm wget unz
 WORKDIR /var/www/html
 RUN     wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN     chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
-COPY    tools/config.sh config.sh
-RUN     chmod +x config.sh
+COPY    tools/config.sh /bin/config.sh
+RUN     chmod +x /bin/config.sh
 RUN mkdir -p /run/php/
 RUN apt-get remove -y unzip wget && \
     apt-get autoremove -y && \
@@ -14,4 +14,4 @@ RUN apt-get remove -y unzip wget && \
 RUN mkdir -p /var/run/php && \
     chmod 755 /var/run/php && \
     chown www-data:www-data /var/run/php
-CMD ["bash","config.sh" ]
+CMD [ "sh","/bin/config.sh" ]

@@ -1,12 +1,12 @@
 #!/bin/bash
 
-openssl req -x509 -nodes -out $SSLCERT -keyout $SSLKEY -subj "/C=MA/ST=Rehamna/L=Benguerir/O=42/OU=1337/CN=met-tahe.42.fr/UID=met-tahe"
+openssl req -x509 -nodes -out $SSLCERT -keyout $SSLKEY -subj "/C=MA/ST=Rehamna/L=Benguerir/O=42/OU=1337/CN=$DOMAINNAME/UID=met-tahe"
 
 echo "server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name met-tahe.42.fr localhost;
+    server_name $DOMAINNAME localhost;
 
     ssl_certificate $SSLCERT;
     ssl_certificate_key $SSLKEY; 
@@ -23,4 +23,4 @@ echo '
         }
 }' >> /etc/nginx/conf.d/nginx.conf
 
-exec nginx -g "daemon off;"
+nginx -g "daemon off;"

@@ -1,5 +1,5 @@
 DIR= cd srcs
-RUN= docker compose up --build
+RUN= docker compose up --build -d
 BUILD= docker compose build
 PS= docker compose ps
 DOWN= docker compose down
