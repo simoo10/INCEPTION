@@ -21,6 +21,6 @@ mount_rm:
 show_vol:
 	docker volume ls
 vol_rm:
-	${RMVOL} && ${RMMOUNT}
+	${RMVOL}
 fclean:clean vol_rm
 		${RMIMG}
